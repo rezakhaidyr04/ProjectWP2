@@ -41,4 +41,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Relasi dengan GameTransaction
+     */
+    public function gameTransactions()
+    {
+        return $this->hasMany(GameTransaction::class);
+    }
 }
