@@ -19,36 +19,56 @@ Platform web modern untuk top-up game online dengan desain professional gaming a
 - **Database**: MySQL via LARAGON
 - **Build**: Vite, NPM
 
-## 🚀 Instalasi & Setup
+## 📖 Documentation
 
-### 1. Clone Project
+Pilih dokumentasi sesuai kebutuhan:
+
+| Dokumen | Deskripsi |
+|---------|-----------|
+| **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** | 📋 Ringkas - Credentials, setup 5 menit, feature checklist |
+| **[DEMO_GUIDE.md](DEMO_GUIDE.md)** | 🎮 Lengkap - Testing guide untuk semua 10 fitur |
+| **[SETUP.md](SETUP.md)** | 🔧 Detail - Installation, troubleshooting, architecture |
+| **[FEATURES_COMPLETED.md](FEATURES_COMPLETED.md)** | ✅ Feature list - Semua yang sudah diimplementasikan |
+| **[COMPLETION.md](COMPLETION.md)** | 📊 Checklist - Project completion status |
+
+---
+
+## 🚀 Instalasi & Setup (5 Menit)
+
+### Quick Start
 ```bash
-git clone <repository_url>
+git clone https://github.com/rezakhaidyr04/ProjectWP2.git
 cd ProjectWP2
+composer install && npm install
+cp .env.example .env && php artisan key:generate
+php artisan migrate:fresh --seed
+php artisan serve
 ```
 
-### 2. Install Dependencies
-```bash
-composer install
-npm install
+Server berjalan di: **http://127.0.0.1:8000**
+
+### Login Credentials
+```
+👤 User: test@example.com / password
+👨‍💼 Admin: admin@example.com / password
 ```
 
-### 3. Setup Environment
-```bash
-cp .env.example .env
-php artisan key:generate
-```
+---
 
-### 4. Konfigurasi Database
-Edit `.env`:
-```
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=projectwp2
-DB_USERNAME=root
-DB_PASSWORD=
-```
+## 🎮 Fitur Utama (10 Features)
+
+1. ✅ **Authentication** - Login, register, password reset
+2. ✅ **Game Top-Up** - Katalog game dengan search & filter
+3. ✅ **Game ID Validation** - Per game type validation
+4. ✅ **Checkout** - Form dengan payment method selection
+5. ✅ **Transaction Receipt** - Transaction code & history
+6. ✅ **User Profile** - Edit info, change password, wallet
+7. ✅ **Admin Dashboard** - Statistics & management
+8. ✅ **Promo Codes** - Create, edit, delete, validate
+9. ✅ **Email Notifications** - TransactionCreated & PaymentConfirmed
+10. ✅ **Security** - Rate limiting, CSRF, input validation
+
+Untuk detail testing, lihat **[DEMO_GUIDE.md](DEMO_GUIDE.md)**
 
 ### 5. Migration & Seeding
 ```bash
