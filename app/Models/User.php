@@ -21,6 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'phone',
+        'address',
     ];
 
     /**
@@ -45,8 +48,16 @@ class User extends Authenticatable
     /**
      * Relasi dengan GameTransaction
      */
-    public function gameTransactions()
+    public function transactions()
     {
         return $this->hasMany(GameTransaction::class);
+    }
+
+    /**
+     * Check apakah user adalah admin
+     */
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
     }
 }

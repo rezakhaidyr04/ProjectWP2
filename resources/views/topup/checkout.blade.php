@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container py-5">
+<div class="container py-5" style="position: relative;">
     <!-- Header -->
     <div class="mb-4">
         <a href="{{ route('topup.game', $package->game_name) }}" class="text-decoration-none" style="color: #00f5ff;">
@@ -9,13 +9,15 @@
         </a>
     </div>
 
-    <div class="row g-4">
+    <div class="mb-5">
+        <h2 style="color: #ffffff; font-weight: 700; margin-bottom: 25px;">
+            Checkout
+        </h2>
+    </div>
+
+    <div class="row g-4" style="align-items: flex-start;">
         <!-- Ringkasan Pesanan -->
         <div class="col-12 col-lg-8">
-            <h2 style="color: #ffffff; font-weight: 700; margin-bottom: 25px;">
-                Checkout
-            </h2>
-
             <form action="{{ route('topup.process', $package->id) }}" method="POST">
                 @csrf
 
@@ -151,12 +153,14 @@
 
         <!-- Ringkasan Harga -->
         <div class="col-12 col-lg-4">
-            <div class="card sticky-top" style="
+            <div class="card" style="
                 background: rgba(30, 30, 30, 0.8);
                 border: 2px solid rgba(0, 245, 255, 0.3);
                 border-radius: 15px;
                 backdrop-filter: blur(20px);
-                top: 100px;
+                position: sticky;
+                top: 90px;
+                align-self: start;
             ">
                 <div class="card-body">
                     <h5 style="color: #00f5ff; font-weight: 600; margin-bottom: 20px;">

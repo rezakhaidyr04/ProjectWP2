@@ -50,7 +50,7 @@
 
             body {
                 font-family: 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-                background: linear-gradient(135deg, var(--primary-dark) 0%, #0f0f1e 25%, #1a0a2e 50%, var(--primary-dark) 100%));
+                background: linear-gradient(135deg, #0a0e27 0%, #1a0f2e 25%, #15082a 50%, #0d0c1f 75%, #0a0e27 100%);
                 background-attachment: fixed;
                 color: var(--text-secondary);
                 min-height: 100vh;
@@ -67,8 +67,8 @@
                 right: 0;
                 bottom: 0;
                 background: 
-                    radial-gradient(circle at 15% 40%, rgba(0, 245, 255, 0.08) 0%, transparent 50%),
-                    radial-gradient(circle at 85% 70%, rgba(57, 255, 20, 0.06) 0%, transparent 50%);
+                    radial-gradient(circle at 15% 40%, rgba(100, 50, 150, 0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 85% 70%, rgba(50, 100, 150, 0.08) 0%, transparent 50%);
                 pointer-events: none;
                 z-index: -1;
             }
@@ -398,35 +398,33 @@
 
             /* ====== HERO SECTION ====== */
             .hero-section {
-                background: linear-gradient(135deg, rgba(0, 245, 255, 0.15) 0%, rgba(57, 255, 20, 0.1) 50%, rgba(176, 48, 255, 0.1) 100%);
+                background: linear-gradient(135deg, rgba(5, 15, 30, 0.9) 0%, rgba(15, 5, 40, 0.85) 50%, rgba(10, 10, 25, 0.9) 100%);
                 border-radius: 15px;
                 padding: 80px 40px;
-                border: 2px solid rgba(0, 245, 255, 0.3);
-                box-shadow: 0 15px 50px rgba(0, 245, 255, 0.15), 0 0 40px rgba(57, 255, 20, 0.08);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
                 text-align: center;
                 margin-bottom: 60px;
+                position: relative;
+                overflow: hidden;
             }
 
             .hero-section h1 {
-                background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-lime) 50%, var(--neon-cyan) 100%);
-                background-size: 300% 300%;
-                animation: gradientFlow 6s ease infinite;
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
+                color: #ffffff;
                 font-size: 3.5rem;
                 font-weight: 900;
                 margin-bottom: 20px;
                 letter-spacing: 2px;
                 text-transform: uppercase;
-                filter: drop-shadow(0 0 30px rgba(0, 245, 255, 0.3));
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             }
 
             .hero-section p {
                 font-size: 1.3rem;
-                color: var(--text-secondary);
+                color: #c0d0e0;
                 font-weight: 500;
-                text-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+                letter-spacing: 0.5px;
             }
 
             /* ====== DROPDOWN STYLING ====== */

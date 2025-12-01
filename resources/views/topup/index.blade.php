@@ -10,6 +10,22 @@
         <p class="lead" style="color: #a0a0c0;">Pilih game favorit Anda untuk melakukan top-up</p>
     </div>
 
+    <!-- Search Bar -->
+    <div class="mb-4">
+        <form method="GET" class="d-flex gap-2">
+            <input type="text" name="search" class="form-control" placeholder="Cari game..." 
+                   value="{{ request('search') }}" style="background: rgba(30, 30, 30, 0.8); border: 2px solid rgba(0, 245, 255, 0.3);">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search"></i> Cari
+            </button>
+            @if(request('search'))
+                <a href="{{ route('topup.index') }}" class="btn btn-outline-secondary">
+                    <i class="fas fa-times"></i>
+                </a>
+            @endif
+        </form>
+    </div>
+
     <!-- Games Grid -->
     <div class="row g-4">
         @forelse($games as $game)
@@ -47,7 +63,12 @@
         @empty
         <div class="col-12">
             <div class="alert" style="background: rgba(255, 59, 48, 0.1); border: 2px solid #ff3b30; color: #ff3b30; border-radius: 10px;">
-                <i class="fas fa-exclamation-circle"></i> Tidak ada game tersedia
+                <i class="fas fa-exclamation-circle"></i> 
+                @if(request('search'))
+                    Tidak ada game dengan nama "{{ request('search') }}"
+                @else
+                    Tidak ada game tersedia
+                @endif
             </div>
         </div>
         @endforelse

@@ -28,7 +28,7 @@ class GamePackage extends Model
     /**
      * Relasi dengan GameTransaction
      */
-    public function gameTransactions()
+    public function transactions()
     {
         return $this->hasMany(GameTransaction::class);
     }

@@ -4,34 +4,64 @@ namespace App\Http\Controllers;
 
 use App\Models\GamePackage;
 use App\Models\GameTransaction;
+use App\Mail\TransactionCreated;
+use App\Services\GameIdValidator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class GameTopUpController extends Controller
 {
     /**
-     * Tampilkan daftar game yang tersedia
+     * Tampilkan daftar game yang tersedia dengan filter
      */
     public function index()
     {
+        $search = request()->get('search');
+        
         $games = GamePackage::select('game_name')
             ->distinct()
-            ->orderBy('game_name')
-            ->get();
+            ->orderBy('game_name');
         
-        return view('topup.index', compact('games'));
+        if ($search) {
+            $games->where('game_name', 'LIKE', "%{$search}%");
+        }
+        
+        $games = $games->get();
+        
+        return view('topup.index', compact('games', 'search'));
     }
 
     /**
-     * Tampilkan paket untuk game tertentu
+     * Tampilkan paket untuk game tertentu dengan filter harga
      */
     public function showGame($gameName)
     {
+        $minPrice = request()->get('min_price');
+        $maxPrice = request()->get('max_price');
+        $sortBy = request()->get('sort_by', 'price');
+        
         $packages = GamePackage::where('game_name', $gameName)
-            ->where('is_active', true)
-            ->orderBy('price')
-            ->get();
+            ->where('is_active', true);
+
+        if ($minPrice) {
+            $packages->where('price', '>=', $minPrice);
+        }
+        if ($maxPrice) {
+            $packages->where('price', '<=', $maxPrice);
+        }
+
+        // Sort options
+        if ($sortBy === 'price_asc') {
+            $packages->orderBy('price', 'asc');
+        } elseif ($sortBy === 'price_desc') {
+            $packages->orderBy('price', 'desc');
+        } else {
+            $packages->orderBy('price', 'asc');
+        }
+
+        $packages = $packages->get();
 
         if ($packages->isEmpty()) {
             return redirect()->route('topup.index')->with('error', 'Game tidak ditemukan');
@@ -39,7 +69,10 @@ class GameTopUpController extends Controller
 
         return view('topup.game', [
             'gameName' => $gameName,
-            'packages' => $packages
+            'packages' => $packages,
+            'minPrice' => $minPrice,
+            'maxPrice' => $maxPrice,
+            'sortBy' => $sortBy,
         ]);
     }
 
@@ -70,6 +103,14 @@ class GameTopUpController extends Controller
 
         $package = GamePackage::findOrFail($packageId);
 
+        // Validate game account ID format
+        $idValidation = GameIdValidator::validate($package->game_name, $validated['game_account']);
+        if (!$idValidation['valid']) {
+            return back()
+                ->withInput()
+                ->withErrors(['game_account' => $idValidation['message']]);
+        }
+
         // Generate unique transaction code
         $transactionCode = 'TRX-' . strtoupper(Str::random(12));
 
@@ -83,6 +124,9 @@ class GameTopUpController extends Controller
             'transaction_code' => $transactionCode,
             'notes' => 'Menunggu konfirmasi pembayaran',
         ]);
+
+        // Send email notification
+        Mail::to(Auth::user()->email)->send(new TransactionCreated($transaction));
 
         return redirect()->route('topup.receipt', $transaction->id)
             ->with('success', 'Transaksi berhasil dibuat. Silakan lanjutkan pembayaran.');
