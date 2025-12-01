@@ -57,144 +57,84 @@
     <p class="text-muted fs-5">Pilih game favorit Anda dan mulai top up sekarang juga</p>
 </div>
 
-    @auth
-        <!-- Game Cards Grid -->
-        <div class="row g-4 mb-5">
-            <div class="col-md-6 col-lg-3">
-                <a href="{{ route('topup.game', 'Mobile Legends') }}" class="text-decoration-none">
-                    <div class="game-card card p-4 text-center">
-                        <div style="position: relative; margin-bottom: 20px;">
-                            <i class="fas fa-crown fa-4x" style="color: var(--neon-cyan);"></i>
-                        </div>
-                        <h4 class="fw-bold mb-2">Mobile Legends</h4>
-                        <p class="small text-muted mb-1">Top up Diamonds</p>
-                        <p class="small text-muted mb-4">5.5 Juta+ pengguna</p>
-                        <button class="btn btn-primary w-100">
-                            <i class="fas fa-arrow-right me-2"></i>Lihat Paket
-                        </button>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-md-6 col-lg-3">
-                <a href="{{ route('topup.game', 'Free Fire') }}" class="text-decoration-none">
-                    <div class="game-card card p-4 text-center">
-                        <div style="position: relative; margin-bottom: 20px;">
-                            <i class="fas fa-fire fa-4x" style="color: var(--accent-warn);"></i>
-                        </div>
-                        <h4 class="fw-bold mb-2">Free Fire</h4>
-                        <p class="small text-muted mb-1">Top up Diamonds</p>
-                        <p class="small text-muted mb-4">50 Juta+ pengguna</p>
-                        <button class="btn btn-primary w-100">
-                            <i class="fas fa-arrow-right me-2"></i>Lihat Paket
-                        </button>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-md-6 col-lg-3">
-                <a href="{{ route('topup.game', 'PUBG Mobile') }}" class="text-decoration-none">
-                    <div class="game-card card p-4 text-center">
-                        <div style="position: relative; margin-bottom: 20px;">
-                            <i class="fas fa-gun fa-4x" style="color: var(--neon-lime);"></i>
-                        </div>
-                        <h4 class="fw-bold mb-2">PUBG Mobile</h4>
-                        <p class="small text-muted mb-1">Top up UC</p>
-                        <p class="small text-muted mb-4">30 Juta+ pengguna</p>
-                        <button class="btn btn-primary w-100">
-                            <i class="fas fa-arrow-right me-2"></i>Lihat Paket
-                        </button>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-md-6 col-lg-3">
-                <a href="{{ route('topup.game', 'Valorant') }}" class="text-decoration-none">
-                    <div class="game-card card p-4 text-center">
-                        <div style="position: relative; margin-bottom: 20px;">
-                            <i class="fas fa-crosshairs fa-4x" style="color: var(--neon-pink);"></i>
-                        </div>
-                        <h4 class="fw-bold mb-2">Valorant</h4>
-                        <p class="small text-muted mb-1">Top up Points</p>
-                        <p class="small text-muted mb-4">25 Juta+ pengguna</p>
-                        <button class="btn btn-primary w-100">
-                            <i class="fas fa-arrow-right me-2"></i>Lihat Paket
-                        </button>
-                    </div>
-                </a>
-            </div>
-        </div>
-
-        <!-- Tips Alert for Authenticated Users -->
-        <div class="alert alert-info mt-5" role="alert">
-            <i class="fas fa-info-circle me-2"></i>
-            <strong>Tips:</strong> Cek riwayat transaksi Anda di menu <strong>Riwayat</strong> untuk melihat semua pembelian.
-        </div>
-    @else
-        <!-- Game Cards for Guests -->
-        <div class="row g-4 mb-5">
-            <div class="col-md-6 col-lg-3">
-                <div class="game-card card p-4 text-center" style="opacity: 0.8;">
-                    <div style="position: relative; margin-bottom: 20px;">
-                        <i class="fas fa-crown fa-4x" style="color: var(--neon-cyan);"></i>
-                    </div>
-                    <h4 class="fw-bold mb-2">Mobile Legends</h4>
-                    <p class="small text-muted mb-1">Top up Diamonds</p>
-                    <p class="small text-muted mb-4">5.5 Juta+ pengguna</p>
-                    <button class="btn btn-primary w-100" onclick="window.location.href='{{ route('login') }}';">
-                        <i class="fas fa-arrow-right me-2"></i>Lihat Paket
-                    </button>
+<!-- Game Cards Grid (Available for Both Auth & Guest) -->
+<div class="row g-4 mb-5">
+    <div class="col-md-6 col-lg-3">
+        <a href="{{ route('topup.game', 'Mobile Legends') }}" class="text-decoration-none">
+            <div class="game-card card p-4 text-center">
+                <div style="position: relative; margin-bottom: 20px;">
+                    <i class="fas fa-crown fa-4x" style="color: var(--neon-cyan);"></i>
                 </div>
+                <h4 class="fw-bold mb-2">Mobile Legends</h4>
+                <p class="small text-muted mb-1">Top up Diamonds</p>
+                <p class="small text-muted mb-4">5.5 Juta+ pengguna</p>
+                <button class="btn btn-primary w-100">
+                    <i class="fas fa-arrow-right me-2"></i>Lihat Paket
+                </button>
             </div>
+        </a>
+    </div>
 
-            <div class="col-md-6 col-lg-3">
-                <div class="game-card card p-4 text-center" style="opacity: 0.8;">
-                    <div style="position: relative; margin-bottom: 20px;">
-                        <i class="fas fa-fire fa-4x" style="color: var(--accent-warn);"></i>
-                    </div>
-                    <h4 class="fw-bold mb-2">Free Fire</h4>
-                    <p class="small text-muted mb-1">Top up Diamonds</p>
-                    <p class="small text-muted mb-4">50 Juta+ pengguna</p>
-                    <button class="btn btn-primary w-100" onclick="window.location.href='{{ route('login') }}';">
-                        <i class="fas fa-arrow-right me-2"></i>Lihat Paket
-                    </button>
+    <div class="col-md-6 col-lg-3">
+        <a href="{{ route('topup.game', 'Free Fire') }}" class="text-decoration-none">
+            <div class="game-card card p-4 text-center">
+                <div style="position: relative; margin-bottom: 20px;">
+                    <i class="fas fa-fire fa-4x" style="color: var(--accent-warn);"></i>
                 </div>
+                <h4 class="fw-bold mb-2">Free Fire</h4>
+                <p class="small text-muted mb-1">Top up Diamonds</p>
+                <p class="small text-muted mb-4">50 Juta+ pengguna</p>
+                <button class="btn btn-primary w-100">
+                    <i class="fas fa-arrow-right me-2"></i>Lihat Paket
+                </button>
             </div>
+        </a>
+    </div>
 
-            <div class="col-md-6 col-lg-3">
-                <div class="game-card card p-4 text-center" style="opacity: 0.8;">
-                    <div style="position: relative; margin-bottom: 20px;">
-                        <i class="fas fa-gun fa-4x" style="color: var(--neon-lime);"></i>
-                    </div>
-                    <h4 class="fw-bold mb-2">PUBG Mobile</h4>
-                    <p class="small text-muted mb-1">Top up UC</p>
-                    <p class="small text-muted mb-4">30 Juta+ pengguna</p>
-                    <button class="btn btn-primary w-100" onclick="window.location.href='{{ route('login') }}';">
-                        <i class="fas fa-arrow-right me-2"></i>Lihat Paket
-                    </button>
+    <div class="col-md-6 col-lg-3">
+        <a href="{{ route('topup.game', 'PUBG Mobile') }}" class="text-decoration-none">
+            <div class="game-card card p-4 text-center">
+                <div style="position: relative; margin-bottom: 20px;">
+                    <i class="fas fa-gun fa-4x" style="color: var(--neon-lime);"></i>
                 </div>
+                <h4 class="fw-bold mb-2">PUBG Mobile</h4>
+                <p class="small text-muted mb-1">Top up UC</p>
+                <p class="small text-muted mb-4">30 Juta+ pengguna</p>
+                <button class="btn btn-primary w-100">
+                    <i class="fas fa-arrow-right me-2"></i>Lihat Paket
+                </button>
             </div>
+        </a>
+    </div>
 
-            <div class="col-md-6 col-lg-3">
-                <div class="game-card card p-4 text-center" style="opacity: 0.8;">
-                    <div style="position: relative; margin-bottom: 20px;">
-                        <i class="fas fa-crosshairs fa-4x" style="color: var(--neon-pink);"></i>
-                    </div>
-                    <h4 class="fw-bold mb-2">Valorant</h4>
-                    <p class="small text-muted mb-1">Top up Points</p>
-                    <p class="small text-muted mb-4">25 Juta+ pengguna</p>
-                    <button class="btn btn-primary w-100" onclick="window.location.href='{{ route('login') }}';">
-                        <i class="fas fa-arrow-right me-2"></i>Lihat Paket
-                    </button>
+    <div class="col-md-6 col-lg-3">
+        <a href="{{ route('topup.game', 'Valorant') }}" class="text-decoration-none">
+            <div class="game-card card p-4 text-center">
+                <div style="position: relative; margin-bottom: 20px;">
+                    <i class="fas fa-crosshairs fa-4x" style="color: var(--neon-pink);"></i>
                 </div>
+                <h4 class="fw-bold mb-2">Valorant</h4>
+                <p class="small text-muted mb-1">Top up Points</p>
+                <p class="small text-muted mb-4">25 Juta+ pengguna</p>
+                <button class="btn btn-primary w-100">
+                    <i class="fas fa-arrow-right me-2"></i>Lihat Paket
+                </button>
             </div>
-        </div>
+        </a>
+    </div>
+</div>
 
-        <!-- Call to Action for Guests -->
-        <div class="alert alert-info text-center py-4 mt-5">
-            <i class="fas fa-star me-2"></i>
-            <p class="mb-0">Silakan <a href="{{ route('login') }}" class="alert-link fw-bold">login</a> atau <a href="{{ route('register') }}" class="alert-link fw-bold">register</a> untuk mulai top up game Anda!</p>
-        </div>
-    @endauth
+<!-- Tips Alert -->
+@auth
+<div class="alert alert-info mt-5" role="alert">
+    <i class="fas fa-info-circle me-2"></i>
+    <strong>Tips:</strong> Cek riwayat transaksi Anda di menu <strong>Riwayat</strong> untuk melihat semua pembelian.
+</div>
+@else
+<div class="alert alert-info mt-5" role="alert">
+    <i class="fas fa-info-circle me-2"></i>
+    <strong>Tips:</strong> Anda bisa melihat paket game sekarang, tapi harus <strong><a href="{{ route('login') }}" style="color: #0d6efd; font-weight: 600;">login</a></strong> untuk melakukan pembelian.
+</div>
+@endif
 </div>
 @endsection

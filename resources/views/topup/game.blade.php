@@ -83,17 +83,31 @@
                             Rp{{ number_format($package->price, 0, ',', '.') }}
                         </h3>
                     </div>
-                    <a href="{{ route('topup.checkout', $package->id) }}" class="btn w-100" style="
-                        background: linear-gradient(135deg, #00f5ff, #39ff14);
-                        color: #000;
-                        font-weight: 600;
-                        border: none;
-                        border-radius: 8px;
-                        padding: 12px;
-                        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                    ">
-                        <i class="fas fa-shopping-cart"></i> Beli Sekarang
-                    </a>
+                    @auth
+                        <a href="{{ route('topup.checkout', $package->id) }}" class="btn w-100" style="
+                            background: linear-gradient(135deg, #00f5ff, #39ff14);
+                            color: #000;
+                            font-weight: 600;
+                            border: none;
+                            border-radius: 8px;
+                            padding: 12px;
+                            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                        ">
+                            <i class="fas fa-shopping-cart"></i> Beli Sekarang
+                        </a>
+                    @else
+                        <button class="btn w-100" data-bs-toggle="modal" data-bs-target="#loginModal" style="
+                            background: linear-gradient(135deg, #ff006e, #ff3b30);
+                            color: #fff;
+                            font-weight: 600;
+                            border: none;
+                            border-radius: 8px;
+                            padding: 12px;
+                            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                        ">
+                            <i class="fas fa-sign-in-alt"></i> Login untuk Membeli
+                        </button>
+                    @endauth
                 </div>
             </div>
         </div>
@@ -118,4 +132,32 @@
         box-shadow: 0 0 20px rgba(0, 245, 255, 0.5) !important;
     }
 </style>
+
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background: rgba(15, 15, 15, 0.95); border: 2px solid rgba(0, 245, 255, 0.3); border-radius: 15px;">
+            <div class="modal-header" style="border-bottom: 2px solid rgba(0, 245, 255, 0.2);">
+                <h5 class="modal-title" style="color: #00f5ff;">
+                    <i class="fas fa-lock"></i> Login Diperlukan
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(1);"></button>
+            </div>
+            <div class="modal-body p-4">
+                <p style="color: #a0a0c0; margin-bottom: 15px;">
+                    Silakan login terlebih dahulu untuk melakukan pembelian top-up game.
+                </p>
+                <p style="color: #a0a0c0; margin-bottom: 20px;">
+                    Belum punya akun? <a href="{{ route('register') }}" style="color: #39ff14; text-decoration: none; font-weight: 600;">Daftar di sini</a>
+                </p>
+            </div>
+            <div class="modal-footer" style="border-top: 2px solid rgba(0, 245, 255, 0.2);">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                <a href="{{ route('login') }}" class="btn" style="background: linear-gradient(135deg, #00f5ff, #39ff14); color: #000; font-weight: 600; border: none;">
+                    <i class="fas fa-sign-in-alt"></i> Login Sekarang
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

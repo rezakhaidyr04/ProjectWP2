@@ -25,9 +25,12 @@ use App\Http\Controllers\GameTopUpController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 
+// Public routes (guest dapat lihat)
+Route::get('/topup', [GameTopUpController::class, 'index'])->name('topup.index');
+Route::get('/topup/{gameName}', [GameTopUpController::class, 'showGame'])->name('topup.game');
+
+// Protected routes (harus login untuk checkout)
 Route::middleware('auth')->group(function () {
-    Route::get('/topup', [GameTopUpController::class, 'index'])->name('topup.index');
-    Route::get('/topup/{gameName}', [GameTopUpController::class, 'showGame'])->name('topup.game');
     Route::get('/topup/{packageId}/checkout', [GameTopUpController::class, 'checkout'])->name('topup.checkout');
     Route::post('/topup/{packageId}/process', [GameTopUpController::class, 'process'])->middleware('throttle.checkout')->name('topup.process');
     Route::get('/topup/{transactionId}/receipt', [GameTopUpController::class, 'receipt'])->name('topup.receipt');
