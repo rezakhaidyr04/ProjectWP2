@@ -1,4 +1,4 @@
-# 🎮 Kelompo 2 - Quick Reference Card
+# 🎮 Kelompok 2 - Quick Reference Card
 
 ## 🔗 GitHub Link
 ```

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Kelola Game Packages - Admin Kelompo 2')
+@section('title', 'Kelola Game Packages - Admin Kelompok 2')
 
 @section('content')
 <div class="container-fluid py-4">

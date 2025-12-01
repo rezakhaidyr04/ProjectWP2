@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Admin Dashboard - Kelompo 2')
+@section('title', 'Admin Dashboard - Kelompok 2')
 
 @section('content')
 <div class="container-fluid py-4">
@@ -10,7 +10,7 @@
             <h1 class="h3 mb-0">
                 <i class="fas fa-tachometer-alt"></i> Admin Dashboard
             </h1>
-            <p class="text-muted">Kelola platform Kelompo 2 Anda</p>
+            <p class="text-muted">Kelola platform Kelompok 2 Anda</p>
         </div>
     </div>
 

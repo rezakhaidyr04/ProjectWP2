@@ -1,4 +1,4 @@
-# 🎮 Kelompo 2 - Fitur yang Telah Ditambahkan
+# 🎮 Kelompok 2 - Fitur yang Telah Ditambahkan
 
 ## ✅ Semua 10 Fitur Telah Selesai
 

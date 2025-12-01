@@ -1,6 +1,6 @@
-# 🎮 Kelompo 2 - Demo & Feature Testing Guide
+# 🎮 Kelompok 2 - Demo & Feature Testing Guide
 
-Panduan lengkap untuk mencoba semua fitur aplikasi Kelompo 2 secara langsung.
+Panduan lengkap untuk mencoba semua fitur aplikasi Kelompok 2 secara langsung.
 
 ---
 

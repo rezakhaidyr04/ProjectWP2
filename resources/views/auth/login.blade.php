@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Masuk - Kelompo 2')
+@section('title', 'Masuk - Kelompok 2')
 
 @section('content')
 <div class="container py-5">
@@ -19,7 +19,7 @@
                     color: #000;
                 ">
                     <h4 style="margin: 0; font-weight: 700;">
-                        <i class="fas fa-sign-in-alt me-2"></i>Masuk ke Kelompo 2
+                        <i class="fas fa-sign-in-alt me-2"></i>Masuk ke Kelompok 2
                     </h4>
                 </div>
 

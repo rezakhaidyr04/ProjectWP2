@@ -20,5 +20,5 @@ Lanjutkan Pembayaran
 Jika Anda memiliki pertanyaan, silakan hubungi tim support kami.
 
 Terima kasih,
-**Kelompo 2 Team**
+**Kelompok 2 Team**
 @endcomponent

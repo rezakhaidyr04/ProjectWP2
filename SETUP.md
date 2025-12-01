@@ -1,6 +1,6 @@
-# 🎮 Kelompo 2 Setup & Maintenance Guide
+# 🎮 Kelompok 2 Setup & Maintenance Guide
 
-Dokumentasi lengkap untuk setup, maintenance, dan troubleshooting aplikasi Kelompo 2.
+Dokumentasi lengkap untuk setup, maintenance, dan troubleshooting aplikasi Kelompok 2.
 
 ## 📋 Pre-Installation Checklist
 
@@ -73,7 +73,7 @@ php artisan key:generate
 
 Edit `.env` sesuai konfigurasi lokal:
 ```env
-APP_NAME=Kelompo 2
+APP_NAME=Kelompok 2
 APP_ENV=local
 APP_DEBUG=true
 APP_URL=http://localhost
