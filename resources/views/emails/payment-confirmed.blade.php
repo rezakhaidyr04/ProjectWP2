@@ -19,8 +19,8 @@ Pembayaran Anda telah berhasil kami terima. Top up game Anda sedang diproses dan
 Lihat Riwayat Transaksi
 @endcomponent
 
-Terima kasih telah menggunakan GameCredit!
+Terima kasih telah menggunakan Kelompo 2!
 
 Salam,
-**GameCredit Team**
+**Kelompo 2 Team**
 @endcomponent

@@ -20,5 +20,5 @@ Lanjutkan Pembayaran
 Jika Anda memiliki pertanyaan, silakan hubungi tim support kami.
 
 Terima kasih,
-**GameCredit Team**
+**Kelompo 2 Team**
 @endcomponent

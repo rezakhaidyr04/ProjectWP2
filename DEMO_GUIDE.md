@@ -1,6 +1,6 @@
-# 🎮 GameCredit - Demo & Feature Testing Guide
+# 🎮 Kelompo 2 - Demo & Feature Testing Guide
 
-Panduan lengkap untuk mencoba semua fitur aplikasi GameCredit secara langsung.
+Panduan lengkap untuk mencoba semua fitur aplikasi Kelompo 2 secara langsung.
 
 ---
 

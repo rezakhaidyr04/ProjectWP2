@@ -9,7 +9,7 @@
             Transaksi Berhasil!
         </h1>
         <p class="lead" style="color: #a0a0c0;">
-            Pesanan Anda sedang diproses. Terima kasih telah berbelanja di GameCredit.
+            Pesanan Anda sedang diproses. Terima kasih telah berbelanja di Kelompo 2.
         </p>
     </div>
 

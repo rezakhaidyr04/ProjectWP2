@@ -1,4 +1,4 @@
-# GameCredit - Platform Top Up Game Online
+# Kelompo 2 - Platform Top Up Game Online
 
 Platform web modern untuk top-up game online dengan desain professional gaming aesthetic.
 

@@ -1,4 +1,4 @@
-# 🎮 GameCredit - Quick Reference Card
+# 🎮 Kelompo 2 - Quick Reference Card
 
 ## 🔗 GitHub Link
 ```
