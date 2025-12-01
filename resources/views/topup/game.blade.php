@@ -65,7 +65,7 @@
             ">
                 <!-- Package Image -->
                 <div style="
-                    height: 200px;
+                    height: 300px;
                     background: linear-gradient(135deg, rgba(0, 245, 255, 0.2), rgba(57, 255, 20, 0.2));
                     display: flex;
                     align-items: center;
@@ -74,10 +74,11 @@
                     border-bottom: 2px solid rgba(0, 245, 255, 0.3);
                 ">
                     @if($package->image)
-                        <img src="{{ $package->image }}" alt="{{ $package->package_name }}" style="
+                        <img src="{{ asset('images/games/' . $package->image) }}" alt="{{ $package->package_name }}" style="
                             width: 100%;
                             height: 100%;
-                            object-fit: cover;
+                            object-fit: contain;
+                            padding: 10px;
                             transition: transform 0.3s ease;
                         " class="package-image">
                     @else

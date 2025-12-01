@@ -40,22 +40,35 @@
                     cursor: pointer;
                     overflow: hidden;
                 ">
+                    @php
+                        $firstPackage = \App\Models\GamePackage::where('game_name', $game->game_name)->first();
+                    @endphp
+                    
                     <div style="
+                        height: 300px;
                         background: linear-gradient(135deg, rgba(0, 245, 255, 0.1), rgba(57, 255, 20, 0.1));
-                        padding: 40px;
-                        text-align: center;
-                        min-height: 200px;
                         display: flex;
                         align-items: center;
                         justify-content: center;
+                        overflow: hidden;
+                        border-bottom: 2px solid rgba(0, 245, 255, 0.3);
                     ">
-                        <div>
-                            <i class="fas fa-gamepad" style="font-size: 3rem; color: #00f5ff; margin-bottom: 15px;"></i>
-                            <h5 style="color: #ffffff; font-weight: 600; margin: 0;">{{ $game->game_name }}</h5>
-                        </div>
+                        @if($firstPackage && $firstPackage->image)
+                            <img src="{{ asset('images/games/' . $firstPackage->image) }}" alt="{{ $game->game_name }}" style="
+                                width: 100%;
+                                height: 100%;
+                                object-fit: contain;
+                                padding: 10px;
+                                transition: transform 0.3s ease;
+                            " class="game-image">
+                        @else
+                            <i class="fas fa-gamepad" style="font-size: 3rem; color: #00f5ff;"></i>
+                        @endif
                     </div>
+                    
                     <div class="card-body text-center">
-                        <p class="card-text" style="color: #a0a0c0;">Lihat paket tersedia</p>
+                        <h5 style="color: #ffffff; font-weight: 600; margin: 0;">{{ $game->game_name }}</h5>
+                        <p class="card-text mt-2" style="color: #a0a0c0; margin: 0;">Lihat paket tersedia</p>
                     </div>
                 </div>
             </a>
@@ -80,6 +93,14 @@
         border-color: #00f5ff !important;
         box-shadow: 0 0 30px rgba(0, 245, 255, 0.3) !important;
         transform: translateY(-5px);
+    }
+    
+    .game-image {
+        transition: transform 0.3s ease !important;
+    }
+    
+    .card:hover .game-image {
+        transform: scale(1.05);
     }
 </style>
 @endsection
