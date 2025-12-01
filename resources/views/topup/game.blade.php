@@ -63,6 +63,31 @@
                 transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                 overflow: hidden;
             ">
+                <!-- Package Image -->
+                <div style="
+                    height: 200px;
+                    background: linear-gradient(135deg, rgba(0, 245, 255, 0.2), rgba(57, 255, 20, 0.2));
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    overflow: hidden;
+                    border-bottom: 2px solid rgba(0, 245, 255, 0.3);
+                ">
+                    @if($package->image)
+                        <img src="{{ $package->image }}" alt="{{ $package->package_name }}" style="
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                            transition: transform 0.3s ease;
+                        " class="package-image">
+                    @else
+                        <div style="color: #a0a0c0; text-align: center;">
+                            <i class="fas fa-image fa-3x"></i>
+                            <p class="mt-2">No Image</p>
+                        </div>
+                    @endif
+                </div>
+
                 <div style="
                     background: linear-gradient(135deg, rgba(0, 245, 255, 0.1), rgba(57, 255, 20, 0.1));
                     padding: 30px;
@@ -126,6 +151,10 @@
         border-color: #00f5ff !important;
         box-shadow: 0 0 30px rgba(0, 245, 255, 0.3) !important;
         transform: translateY(-5px);
+    }
+
+    .card:hover .package-image {
+        transform: scale(1.05);
     }
 
     .btn:hover {
