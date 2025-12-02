@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/my-topups', [GameTopUpController::class, 'myTransactions'])->name('topup.myTransactions');
     
     // Payment Routes
+    Route::get('/payment/{transactionId}/snap', [PaymentController::class, 'generateSnap'])->name('payment.snap');
     Route::get('/payment/{transactionId}/token', [PaymentController::class, 'generateToken'])->name('payment.token');
     Route::get('/payment/{transactionId}/status', [PaymentController::class, 'checkStatus'])->name('payment.status');
 

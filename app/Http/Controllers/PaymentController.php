@@ -24,6 +24,66 @@ class PaymentController extends Controller
     }
 
     /**
+     * Generate Snap Token untuk pembayaran QRIS/E-wallet
+     */
+    public function generateSnap($transactionId)
+    {
+        $transaction = GameTransaction::with(['gamePackage', 'user'])
+            ->findOrFail($transactionId);
+
+        if ($transaction->user_id !== Auth::id()) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        $enabledPayments = [];
+        if ($transaction->payment_method === 'qris') {
+            $enabledPayments = ['qris'];
+        } elseif ($transaction->payment_method === 'gopay') {
+            $enabledPayments = ['gopay'];
+        } elseif ($transaction->payment_method === 'ovo') {
+            $enabledPayments = ['ovo'];
+        } elseif ($transaction->payment_method === 'dana') {
+            $enabledPayments = ['dana'];
+        } elseif ($transaction->payment_method === 'bank_transfer') {
+            $enabledPayments = ['bank_transfer'];
+        }
+
+        $params = [
+            'transaction_details' => [
+                'order_id' => $transaction->transaction_code,
+                'gross_amount' => (int) $transaction->total_price,
+            ],
+            'customer_details' => [
+                'first_name' => $transaction->user->name,
+                'email' => $transaction->user->email,
+                'phone' => $transaction->user->phone ?? '',
+            ],
+            'item_details' => [
+                [
+                    'id' => $transaction->gamePackage->id,
+                    'price' => (int) $transaction->total_price,
+                    'quantity' => 1,
+                    'name' => $transaction->gamePackage->game_name . ' - ' . $transaction->gamePackage->package_name,
+                ]
+            ],
+            'callbacks' => [
+                'finish' => route('topup.receipt', $transaction->id),
+            ]
+        ];
+
+        if (!empty($enabledPayments)) {
+            $params['enabled_payments'] = $enabledPayments;
+        }
+
+        try {
+            $snapToken = Snap::getSnapToken($params);
+            return response()->json(['snap_token' => $snapToken]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    /**
      * Generate Midtrans Snap Token untuk pembayaran
      */
     public function generateToken($transactionId)
@@ -90,7 +150,7 @@ class PaymentController extends Controller
                     'notes' => 'Pembayaran berhasil',
                 ]);
                 // Send confirmation email
-                Mail::to($transaction->user->email)->send(new PaymentConfirmed($transaction));
+                // Mail::to($transaction->user->email)->send(new PaymentConfirmed($transaction));
             } elseif ($transactionStatus === 'pending') {
                 $transaction->update([
                     'status' => 'pending',

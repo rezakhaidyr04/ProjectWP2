@@ -77,6 +77,120 @@
                 </div>
             </div>
 
+            <!-- Button Pembayaran -->
+            @if($transaction->status === 'pending')
+            <div class="card mb-4" style="
+                background: rgba(30, 30, 30, 0.8);
+                border: 2px solid rgba(57, 255, 20, 0.3);
+                border-radius: 15px;
+                backdrop-filter: blur(20px);
+            ">
+                <div class="card-body">
+                    <h5 style="color: #39ff14; font-weight: 600; margin-bottom: 15px;">
+                        <i class="fas fa-credit-card"></i> Lanjutkan Pembayaran
+                    </h5>
+                    
+                    @if($transaction->payment_method === 'qris')
+                    <p style="color: #a0a0c0; margin-bottom: 15px; font-size: 0.9rem;">
+                        Klik tombol di bawah untuk menampilkan QR Code yang dapat di-scan
+                    </p>
+                    <button id="pay-button" class="btn w-100" style="
+                        background: linear-gradient(135deg, #00f5ff, #39ff14);
+                        color: #000;
+                        font-weight: 600;
+                        border: none;
+                        border-radius: 8px;
+                        padding: 15px;
+                        font-size: 1.1rem;
+                        cursor: pointer;
+                        margin-bottom: 15px;
+                    ">
+                        <i class="fas fa-qrcode"></i> Tampilkan QR Code
+                    </button>
+                    
+                    <div id="qris-container" style="display: none; text-align: center; padding: 20px; background: rgba(255, 255, 255, 0.05); border-radius: 8px; margin-bottom: 15px;">
+                        <!-- Demo QRIS Barcode -->
+                        <svg style="max-width: 300px; border-radius: 8px;" viewBox="0 0 200 200">
+                            <!-- Simple QR Code Pattern for Demo -->
+                            <rect width="200" height="200" fill="white"/>
+                            <!-- Position markers (3 corners) -->
+                            <rect x="10" y="10" width="40" height="40" fill="black"/>
+                            <rect x="15" y="15" width="30" height="30" fill="white"/>
+                            <rect x="20" y="20" width="20" height="20" fill="black"/>
+                            
+                            <rect x="150" y="10" width="40" height="40" fill="black"/>
+                            <rect x="155" y="15" width="30" height="30" fill="white"/>
+                            <rect x="160" y="20" width="20" height="20" fill="black"/>
+                            
+                            <rect x="10" y="150" width="40" height="40" fill="black"/>
+                            <rect x="15" y="155" width="30" height="30" fill="white"/>
+                            <rect x="20" y="160" width="20" height="20" fill="black"/>
+                            
+                            <!-- Random pattern in middle -->
+                            <rect x="60" y="60" width="10" height="10" fill="black"/>
+                            <rect x="75" y="60" width="10" height="10" fill="black"/>
+                            <rect x="90" y="60" width="10" height="10" fill="white"/>
+                            <rect x="105" y="60" width="10" height="10" fill="black"/>
+                            
+                            <rect x="60" y="75" width="10" height="10" fill="white"/>
+                            <rect x="75" y="75" width="10" height="10" fill="black"/>
+                            <rect x="90" y="75" width="10" height="10" fill="black"/>
+                            <rect x="105" y="75" width="10" height="10" fill="white"/>
+                            
+                            <rect x="60" y="90" width="10" height="10" fill="black"/>
+                            <rect x="75" y="90" width="10" height="10" fill="white"/>
+                            <rect x="90" y="90" width="10" height="10" fill="black"/>
+                            <rect x="105" y="90" width="10" height="10" fill="black"/>
+                            
+                            <rect x="60" y="105" width="10" height="10" fill="black"/>
+                            <rect x="75" y="105" width="10" height="10" fill="black"/>
+                            <rect x="90" y="105" width="10" height="10" fill="white"/>
+                            <rect x="105" y="105" width="10" height="10" fill="black"/>
+                        </svg>
+                        <p style="color: #a0a0c0; margin-top: 15px; font-size: 0.85rem;">
+                            <strong>Kode Transaksi:</strong> {{ $transaction->transaction_code }}<br>
+                            <strong>Nominal:</strong> Rp {{ number_format($transaction->total_price, 0, ',', '.') }}
+                        </p>
+                        <div style="background: rgba(57, 255, 20, 0.1); border-left: 4px solid #39ff14; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                            <p style="color: #39ff14; font-weight: 600; margin: 0 0 8px 0;">
+                                <i class="fas fa-check-circle"></i> Demo Mode
+                            </p>
+                            <p style="color: #a0a0c0; margin: 0; font-size: 0.9rem;">
+                                Ini adalah barcode demo. Untuk pembayaran asli, hubungi support.
+                            </p>
+                        </div>
+                    </div>
+                    @else
+                    <p style="color: #a0a0c0; margin-bottom: 15px; font-size: 0.9rem;">
+                        Metode pembayaran: <strong>{{ $paymentMethods[$transaction->payment_method] ?? $transaction->payment_method }}</strong>
+                    </p>
+                    
+                    <button id="pay-button" class="btn w-100" style="
+                        background: linear-gradient(135deg, #00f5ff, #39ff14);
+                        color: #000;
+                        font-weight: 600;
+                        border: none;
+                        border-radius: 8px;
+                        padding: 15px;
+                        font-size: 1.1rem;
+                        cursor: pointer;
+                    ">
+                        <i class="fas fa-lock"></i> Bayar Sekarang
+                    </button>
+                    
+                    <div style="background: rgba(0, 245, 255, 0.1); border-left: 4px solid #00f5ff; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <p style="color: #00f5ff; font-weight: 600; margin: 0 0 8px 0;">
+                            <i class="fas fa-info-circle"></i> Demo Mode
+                        </p>
+                        <p style="color: #a0a0c0; margin: 0; font-size: 0.9rem;">
+                            Hubungi support untuk melakukan pembayaran. Sistem saat ini dalam mode demo.
+                        </p>
+                    </div>
+                    @endif
+                </div>
+            </div>
+            @endif
+
             <!-- Status Pembayaran -->
             <div class="card mb-4" style="
                 background: rgba(30, 30, 30, 0.8);
@@ -100,6 +214,9 @@
                 </div>
             </div>
 
+            <!-- Status Pembayaran -->
+            </div>
+
             <!-- Metode Pembayaran -->
             <div class="card mb-4" style="
                 background: rgba(30, 30, 30, 0.8);
@@ -115,6 +232,7 @@
                     @php
                         $paymentMethods = [
                             'bank_transfer' => 'Transfer Bank',
+                            'qris' => 'QRIS / Barcode',
                             'e_wallet' => 'E-Wallet',
                             'gopay' => 'GoPay',
                             'ovo' => 'OVO',
@@ -210,7 +328,22 @@ function copyToClipboard(text) {
         alert('Kode transaksi berhasil disalin!');
     });
 }
+
+// Toggle barcode untuk QRIS
+@if($transaction->status === 'pending' && $transaction->payment_method === 'qris')
+document.getElementById('pay-button').addEventListener('click', function() {
+    const container = document.getElementById('qris-container');
+    if (container.style.display === 'none') {
+        container.style.display = 'block';
+        this.innerHTML = '<i class="fas fa-eye-slash"></i> Sembunyikan QR Code';
+    } else {
+        container.style.display = 'none';
+        this.innerHTML = '<i class="fas fa-qrcode"></i> Tampilkan QR Code';
+    }
+});
+@endif
 </script>
+
 
 <style>
     .btn:hover {

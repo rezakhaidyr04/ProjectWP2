@@ -112,6 +112,9 @@
                                 <option value="bank_transfer" @selected(old('payment_method') === 'bank_transfer')>
                                     <i class="fas fa-university"></i> Transfer Bank
                                 </option>
+                                <option value="qris" @selected(old('payment_method') === 'qris')>
+                                    <i class="fas fa-qrcode"></i> QRIS / Barcode
+                                </option>
                                 <option value="e_wallet" @selected(old('payment_method') === 'e_wallet')>
                                     <i class="fas fa-wallet"></i> E-Wallet
                                 </option>

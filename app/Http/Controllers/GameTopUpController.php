@@ -126,7 +126,7 @@ class GameTopUpController extends Controller
         ]);
 
         // Send email notification
-        Mail::to(Auth::user()->email)->send(new TransactionCreated($transaction));
+        // Mail::to(Auth::user()->email)->send(new TransactionCreated($transaction));
 
         return redirect()->route('topup.receipt', $transaction->id)
             ->with('success', 'Transaksi berhasil dibuat. Silakan lanjutkan pembayaran.');

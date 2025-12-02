@@ -28,7 +28,8 @@ class TransactionCreated extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.transaction-created',
+            html: 'emails.transaction-created',
+            text: 'emails.transaction-created-plain'
         );
     }
 
