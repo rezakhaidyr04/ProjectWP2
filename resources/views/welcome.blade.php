@@ -5,7 +5,7 @@
 @section('content')
 <!-- Hero Section -->
 <div class="hero-section">
-    <h1><i class="fas fa-zap me-3"></i>TOP UP GAME FAVORIT ANDA</h1>
+    <h1><i class="fas fa-zap me-3"></i>TOP UP GAME FAVORIT KAMU!</h1>
     <p>Platform top up game online terpercaya dengan harga terbaik & transaksi super cepat</p>
     @guest
         <div class="mt-4">
