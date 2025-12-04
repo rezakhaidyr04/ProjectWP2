@@ -67,7 +67,7 @@
                 </div>
                 <h4 class="fw-bold mb-2">Mobile Legends</h4>
                 <p class="small text-muted mb-1">Top up Diamonds</p>
-                <p class="small text-muted mb-4">5.5 Juta+ pengguna</p>
+                <p class="small text-muted mb-4">10.5 Juta+ pengguna</p>
                 <button class="btn btn-primary w-100">
                     <i class="fas fa-arrow-right me-2"></i>Lihat Paket
                 </button>
