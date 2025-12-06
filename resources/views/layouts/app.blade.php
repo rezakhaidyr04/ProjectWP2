@@ -588,6 +588,18 @@
                                 <i class="fas fa-star me-1"></i>Top Up
                             </a>
                         </li>
+                        @auth
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('wishlist.index') }}">
+                                    <i class="fas fa-heart me-1"></i>Wishlist
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('export.create') }}">
+                                    <i class="fas fa-download me-1"></i>Export
+                                </a>
+                            </li>
+                        @endauth
                         <li class="nav-item">
                             <a class="nav-link" href="#help">
                                 <i class="fas fa-question-circle me-1"></i>Bantuan

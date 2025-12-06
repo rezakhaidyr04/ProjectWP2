@@ -72,3 +72,37 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
 // Promo code validation API (authenticated)
 Route::post('/api/promo-code/validate', [PromoCodeController::class, 'validate'])->middleware('auth')->name('api.promo-code.validate');
+
+// Reviews & Ratings Routes
+use App\Http\Controllers\GameReviewController;
+
+Route::prefix('reviews')->middleware(['web'])->group(function () {
+    Route::get('/game/{gamePackageId}', [GameReviewController::class, 'index'])->name('reviews.index');
+    Route::get('/create/{gamePackageId}', [GameReviewController::class, 'create'])->middleware('auth')->name('reviews.create');
+    Route::post('/store', [GameReviewController::class, 'store'])->middleware('auth')->name('reviews.store');
+    Route::get('/{review}', [GameReviewController::class, 'show'])->name('reviews.show');
+    Route::post('/{review}/helpful', [GameReviewController::class, 'markHelpful'])->middleware('auth')->name('reviews.helpful');
+    Route::delete('/{review}', [GameReviewController::class, 'destroy'])->middleware('auth')->name('reviews.destroy');
+});
+
+// Wishlist Routes
+use App\Http\Controllers\WishlistController;
+
+Route::prefix('wishlist')->middleware('auth')->group(function () {
+    Route::get('/', [WishlistController::class, 'index'])->name('wishlist.index');
+    Route::post('/store', [WishlistController::class, 'store'])->name('wishlist.store');
+    Route::delete('/{gamePackageId}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
+    Route::get('/check/{gamePackageId}', [WishlistController::class, 'check'])->name('wishlist.check');
+});
+
+// Export Routes
+use App\Http\Controllers\ExportController;
+
+Route::prefix('export')->middleware('auth')->group(function () {
+    Route::get('/', [ExportController::class, 'create'])->name('export.create');
+    Route::post('/transactions/pdf', [ExportController::class, 'pdf'])->name('export.transactions.pdf');
+    Route::post('/transactions/csv', [ExportController::class, 'csv'])->name('export.transactions.csv');
+    Route::get('/reviews', [ExportController::class, 'reviews'])->name('export.reviews');
+    Route::get('/wishlist', [ExportController::class, 'wishlist'])->name('export.wishlist');
+    Route::get('/stats', [ExportController::class, 'stats'])->name('export.stats');
+});
