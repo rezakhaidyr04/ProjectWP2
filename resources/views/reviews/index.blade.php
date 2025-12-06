@@ -25,7 +25,8 @@
                                 @foreach([5,4,3,2,1] as $star)
                                     @php
                                         $count = $ratingDist[$star] ?? 0;
-                                        $percentage = $count > 0 ? ($count / array_sum($ratingDist) * 100) : 0;
+                                        $totalReviews = is_array($ratingDist) ? array_sum($ratingDist) : $ratingDist->sum();
+                                        $percentage = $count > 0 ? ($count / $totalReviews * 100) : 0;
                                     @endphp
                                     <div class="d-flex align-items-center mb-2">
                                         <span class="me-2 text-muted" style="width: 30px;">{{ $star }} ★</span>
