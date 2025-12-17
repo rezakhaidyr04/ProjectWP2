@@ -109,6 +109,21 @@
                             Rp{{ number_format($package->price, 0, ',', '.') }}
                         </h3>
                     </div>
+
+                    <!-- Reviews & Wishlist Section -->
+                    <div style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid rgba(0, 245, 255, 0.2);">
+                        <div class="d-grid gap-2">
+                            <a href="{{ route('reviews.index', $package->id) }}" class="btn btn-sm" style="background: rgba(0, 212, 255, 0.2); color: #00d4ff; border: 1px solid #00d4ff; font-size: 0.85rem;">
+                                <i class="fas fa-star me-1"></i> Lihat Review ({{ $package->reviews()->count() }})
+                            </a>
+                            @auth
+                                <button type="button" class="btn btn-sm" onclick="toggleWishlist({{ $package->id }})" style="background: rgba(236, 72, 153, 0.2); color: #ec4899; border: 1px solid #ec4899; font-size: 0.85rem;">
+                                    <i class="fas fa-heart me-1"></i> <span id="wishlist-text-{{ $package->id }}">Tambah ke Wishlist</span>
+                                </button>
+                            @endauth
+                        </div>
+                    </div>
+
                     @auth
                         <a href="{{ route('topup.checkout', $package->id) }}" class="btn w-100" style="
                             background: linear-gradient(135deg, #00f5ff, #39ff14);
@@ -190,4 +205,75 @@
         </div>
     </div>
 </div>
-@endsection
+
+<script>
+function toggleWishlist(gamePackageId) {
+    // Check if already in wishlist
+    fetch(`/wishlist/check/${gamePackageId}`, {
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.in_wishlist) {
+            // Remove from wishlist
+            fetch(`/wishlist/${gamePackageId}`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById(`wishlist-text-${gamePackageId}`).textContent = 'Tambah ke Wishlist';
+                    alert(data.message);
+                }
+            });
+        } else {
+            // Add to wishlist
+            fetch('/wishlist/store', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    game_package_id: gamePackageId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById(`wishlist-text-${gamePackageId}`).textContent = 'Hapus dari Wishlist';
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan');
+            });
+        }
+    });
+}
+
+// Load wishlist status on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const packageIds = document.querySelectorAll('[id^="wishlist-text-"]');
+    packageIds.forEach(element => {
+        const gamePackageId = element.id.split('-')[2];
+        fetch(`/wishlist/check/${gamePackageId}`, {
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.in_wishlist) {
+                element.textContent = 'Hapus dari Wishlist';
+            }
+        });
+    });
+});
+</script>

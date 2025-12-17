@@ -7,6 +7,8 @@ use App\Models\GameTransaction;
 use App\Models\User;
 use App\Models\GamePackage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -26,29 +28,36 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        // Statistics
+        // Main Statistics
         $totalUsers = User::count();
         $totalTransactions = GameTransaction::count();
         $completedTransactions = GameTransaction::where('status', 'completed')->count();
         $totalRevenue = GameTransaction::where('status', 'completed')->sum('total_price');
         $pendingTransactions = GameTransaction::where('status', 'pending')->count();
+        $failedTransactions = GameTransaction::where('status', 'failed')->count();
+        $totalGames = GamePackage::count();
 
-        // Recent transactions
+        // Recent transactions for the table
         $recentTransactions = GameTransaction::with(['user', 'gamePackage'])
             ->orderBy('created_at', 'desc')
-            ->limit(10)
+            ->limit(7)
             ->get();
 
-        // Status distribution
-        $statusDistribution = GameTransaction::selectRaw('status, COUNT(*) as count')
-            ->groupBy('status')
-            ->get();
-
-        // Top games
-        $topGames = GamePackage::withCount('transactions')
-            ->orderBy('transactions_count', 'desc')
-            ->limit(5)
-            ->get();
+        // Data for the transaction chart (last 7 days)
+        $transactionChartData = GameTransaction::select(
+                DB::raw('DATE(created_at) as date'),
+                DB::raw('SUM(CASE WHEN status = "completed" THEN 1 ELSE 0 END) as completed'),
+                DB::raw('SUM(CASE WHEN status = "pending" THEN 1 ELSE 0 END) as pending'),
+                DB::raw('SUM(CASE WHEN status = "failed" THEN 1 ELSE 0 END) as failed')
+            )
+            ->where('created_at', '>=', Carbon::now()->subDays(7))
+            ->groupBy('date')
+            ->orderBy('date', 'asc')
+            ->get()
+            ->map(function ($item) {
+                $item->date = Carbon::parse($item->date)->format('d M');
+                return $item;
+            });
 
         return view('admin.dashboard', compact(
             'totalUsers',
@@ -56,9 +65,10 @@ class DashboardController extends Controller
             'completedTransactions',
             'totalRevenue',
             'pendingTransactions',
+            'failedTransactions',
+            'totalGames',
             'recentTransactions',
-            'statusDistribution',
-            'topGames'
+            'transactionChartData'
         ));
     }
 

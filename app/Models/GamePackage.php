@@ -32,4 +32,36 @@ class GamePackage extends Model
     {
         return $this->hasMany(GameTransaction::class);
     }
+
+    /**
+     * Reviews untuk game ini
+     */
+    public function reviews()
+    {
+        return $this->hasMany(GameReview::class);
+    }
+
+    /**
+     * Wishlists untuk game ini
+     */
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
+
+    /**
+     * Get average rating
+     */
+    public function getAverageRating()
+    {
+        return GameReview::getAverageRating($this->id);
+    }
+
+    /**
+     * Get rating distribution
+     */
+    public function getRatingDistribution()
+    {
+        return GameReview::getRatingDistribution($this->id);
+    }
 }

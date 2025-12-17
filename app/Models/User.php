@@ -54,6 +54,62 @@ class User extends Authenticatable
     }
 
     /**
+     * Reviews yang ditulis user
+     */
+    public function reviews()
+    {
+        return $this->hasMany(GameReview::class);
+    }
+
+    /**
+     * Wishlist user
+     */
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
+
+    /**
+     * Badges yang dimiliki user
+     */
+    public function badges()
+    {
+        return $this->hasMany(UserBadge::class);
+    }
+
+    /**
+     * Loyalty points user
+     */
+    public function loyaltyPoints()
+    {
+        return $this->hasMany(LoyaltyPoint::class);
+    }
+
+    /**
+     * Two Factor Auth records
+     */
+    public function twoFactorAuth()
+    {
+        return $this->hasOne(TwoFactorAuth::class);
+    }
+
+    /**
+     * User language preference
+     */
+    public function languagePreference()
+    {
+        return $this->hasOne(UserLanguage::class);
+    }
+
+    /**
+     * Bulk transactions user
+     */
+    public function bulkTransactions()
+    {
+        return $this->hasMany(BulkTransaction::class);
+    }
+
+    /**
      * Check apakah user adalah admin
      */
     public function isAdmin()

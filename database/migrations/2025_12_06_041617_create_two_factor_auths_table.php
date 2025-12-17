@@ -1,0 +1,42 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('two_factor_auths', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->boolean('enabled')->default(false);
+            $table->enum('method', ['email', 'sms'])->default('email');
+            $table->string('phone_number')->nullable();
+            $table->string('otp_code')->nullable();
+            $table->timestamp('otp_expires_at')->nullable();
+            $table->integer('attempts')->default(0); // Failed attempts
+            $table->timestamp('verified_at')->nullable();
+            $table->timestamps();
+
+            // Foreign keys
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+            // Indexes
+            $table->index('user_id');
+            $table->index('enabled');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('two_factor_auths');
+    }
+};

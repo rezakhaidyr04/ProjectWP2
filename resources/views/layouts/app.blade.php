@@ -38,6 +38,27 @@
                 --accent-danger: #ef4444;
             }
 
+            /* === LIGHT MODE === */
+            body.light-mode {
+                --primary-dark: #ffffff;
+                --secondary-dark: #f8f9fa;
+                --tertiary-dark: #e9ecef;
+                
+                --text-primary: #1a1a1a;
+                --text-secondary: #333333;
+                --text-muted: #666666;
+            }
+
+            body.light-mode {
+                background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 25%, #f0f4f8 50%, #f8f9fa 75%, #ffffff 100%) !important;
+            }
+
+            body.light-mode::before {
+                background: 
+                    radial-gradient(circle at 15% 40%, rgba(168, 85, 247, 0.03) 0%, transparent 50%),
+                    radial-gradient(circle at 85% 70%, rgba(0, 212, 255, 0.02) 0%, transparent 50%) !important;
+            }
+
             * {
                 margin: 0;
                 padding: 0;
@@ -565,6 +586,109 @@
                     font-size: 0.85rem;
                 }
             }
+
+            /* === DARK MODE TOGGLE BUTTON === */
+            .dark-mode-toggle {
+                background: rgba(0, 212, 255, 0.1);
+                border: 2px solid var(--neon-cyan);
+                color: var(--neon-cyan);
+                padding: 8px 12px;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-weight: 600;
+                margin: 0 10px;
+            }
+
+            .dark-mode-toggle:hover {
+                background: var(--neon-cyan);
+                color: var(--primary-dark);
+                box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+            }
+
+            /* === LIGHT MODE ADJUSTMENTS === */
+            body.light-mode .navbar {
+                background: linear-gradient(90deg, rgba(248, 249, 250, 0.95) 0%, rgba(240, 244, 248, 0.95) 50%, rgba(248, 249, 250, 0.95) 100%);
+                border-bottom: 2px solid rgba(0, 212, 255, 0.3);
+            }
+
+            body.light-mode .navbar-brand {
+                filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.2));
+            }
+
+            body.light-mode .card,
+            body.light-mode .game-card {
+                background: rgba(255, 255, 255, 0.8) !important;
+                border-color: rgba(0, 212, 255, 0.2) !important;
+            }
+
+            body.light-mode .card:hover,
+            body.light-mode .game-card:hover {
+                background: rgba(255, 255, 255, 0.95) !important;
+                box-shadow: 0 20px 50px rgba(0, 212, 255, 0.15) !important;
+            }
+
+            body.light-mode .form-control,
+            body.light-mode .form-select {
+                background: rgba(248, 249, 250, 0.9) !important;
+                border: 2px solid rgba(0, 212, 255, 0.2) !important;
+                color: var(--text-secondary) !important;
+            }
+
+            body.light-mode .form-control:focus,
+            body.light-mode .form-select:focus {
+                background: rgba(255, 255, 255, 1) !important;
+                border-color: var(--neon-cyan) !important;
+                box-shadow: 0 0 0 0.2rem rgba(0, 212, 255, 0.25) !important;
+            }
+
+            body.light-mode .table {
+                color: var(--text-secondary);
+            }
+
+            body.light-mode .table thead {
+                background: rgba(0, 212, 255, 0.1);
+                color: var(--text-secondary);
+            }
+
+            body.light-mode .progress {
+                background-color: #e9ecef;
+            }
+
+            body.light-mode .alert {
+                background-color: #f8f9fa;
+                border-color: rgba(0, 212, 255, 0.2);
+                color: var(--text-secondary);
+            }
+
+            body.light-mode .modal-content {
+                background: rgba(255, 255, 255, 0.95) !important;
+                border-color: rgba(0, 212, 255, 0.2) !important;
+            }
+
+            body.light-mode .modal-header {
+                border-bottom-color: rgba(0, 212, 255, 0.2) !important;
+                color: var(--text-secondary) !important;
+            }
+
+            body.light-mode .modal-footer {
+                border-top-color: rgba(0, 212, 255, 0.2) !important;
+            }
+
+            body.light-mode .dropdown-menu {
+                background: rgba(255, 255, 255, 0.95) !important;
+                border-color: rgba(0, 212, 255, 0.2) !important;
+            }
+
+            body.light-mode .dropdown-item {
+                color: var(--text-secondary) !important;
+            }
+
+            body.light-mode .dropdown-item:hover,
+            body.light-mode .dropdown-item:focus {
+                background-color: rgba(0, 212, 255, 0.1) !important;
+                color: var(--neon-cyan) !important;
+            }
         </style>
 
         @yield('styles')
@@ -588,6 +712,18 @@
                                 <i class="fas fa-star me-1"></i>Top Up
                             </a>
                         </li>
+                        @auth
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('wishlist.index') }}">
+                                    <i class="fas fa-heart me-1"></i>Wishlist
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('export.create') }}">
+                                    <i class="fas fa-download me-1"></i>Export
+                                </a>
+                            </li>
+                        @endauth
                         <li class="nav-item">
                             <a class="nav-link" href="#help">
                                 <i class="fas fa-question-circle me-1"></i>Bantuan
@@ -595,8 +731,15 @@
                         </li>
                     </ul>
 
-                    <!-- Right Side - Auth Links -->
-                    <ul class="navbar-nav ms-auto">
+                    <!-- Right Side - Dark Mode Toggle & Auth Links -->
+                    <ul class="navbar-nav ms-auto align-items-center">
+                        <!-- Dark Mode Toggle -->
+                        <li class="nav-item">
+                            <button type="button" class="dark-mode-toggle" onclick="toggleDarkMode()">
+                                <i class="fas fa-moon me-1"></i><span id="mode-text">Dark</span>
+                            </button>
+                        </li>
+
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
@@ -624,7 +767,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="{{ route('profile.show') }}">
                                         <i class="fas fa-cog me-2"></i>Pengaturan Profil
                                     </a>
                                     <div class="dropdown-divider"></div>
@@ -718,6 +861,44 @@
 
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        
+        <!-- Dark Mode Toggle Script -->
+        <script>
+            // Initialize dark mode from localStorage
+            document.addEventListener('DOMContentLoaded', function() {
+                const isDarkMode = localStorage.getItem('darkMode') === 'false';
+                if (isDarkMode) {
+                    document.body.classList.add('light-mode');
+                    document.getElementById('mode-text').textContent = 'Light';
+                    document.querySelector('.dark-mode-toggle i').classList.remove('fa-moon');
+                    document.querySelector('.dark-mode-toggle i').classList.add('fa-sun');
+                }
+            });
+
+            function toggleDarkMode() {
+                const body = document.body;
+                const toggle = document.querySelector('.dark-mode-toggle i');
+                const modeText = document.getElementById('mode-text');
+                
+                // Toggle light mode class
+                body.classList.toggle('light-mode');
+                
+                if (body.classList.contains('light-mode')) {
+                    // Light mode
+                    localStorage.setItem('darkMode', 'false');
+                    toggle.classList.remove('fa-moon');
+                    toggle.classList.add('fa-sun');
+                    modeText.textContent = 'Light';
+                } else {
+                    // Dark mode
+                    localStorage.setItem('darkMode', 'true');
+                    toggle.classList.remove('fa-sun');
+                    toggle.classList.add('fa-moon');
+                    modeText.textContent = 'Dark';
+                }
+            }
+        </script>
+
         @yield('scripts')
     </body>
 </html>
