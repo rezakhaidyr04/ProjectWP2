@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Kelompok 2 - Platform Top Up Game Online Terpercaya')
+@section('title', 'PayToWin - Platform Top Up Game Online Terpercaya')
 
 @section('content')
 <!-- Hero Section -->
