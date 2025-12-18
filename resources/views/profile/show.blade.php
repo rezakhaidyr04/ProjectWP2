@@ -101,10 +101,6 @@
                                 <i class="fas fa-badge me-1"></i>{{ Auth::user()->role ?? 'Member' }}
                             </p>
                         </div>
-                        <div class="col-md-12 mb-0">
-                            <label class="info-label">Alamat</label>
-                            <p class="info-value">{{ Auth::user()->address ?? '-' }}</p>
-                        </div>
                     </div>
                 </div>
             </div>
