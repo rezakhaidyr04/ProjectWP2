@@ -49,7 +49,7 @@ class GamePackageSeeder extends Seeder
                 'amount' => 10,
                 'price' => 8000,
                 'description' => '10 Diamonds untuk Free Fire',
-                'image' => 'free fire.png',
+                'image' => 'Free Fire.png',
                 'is_active' => true
             ],
             [
@@ -58,7 +58,7 @@ class GamePackageSeeder extends Seeder
                 'amount' => 50,
                 'price' => 39000,
                 'description' => '50 Diamonds untuk Free Fire',
-                'image' => 'free fire.png',
+                'image' => 'Free Fire.png',
                 'is_active' => true
             ],
 
@@ -69,7 +69,7 @@ class GamePackageSeeder extends Seeder
                 'amount' => 60,
                 'price' => 9000,
                 'description' => '60 UC untuk PUBG Mobile',
-                'image' => 'pubg.png',
+                'image' => 'PUBG.jpeg',
                 'is_active' => true
             ],
             [
@@ -78,7 +78,7 @@ class GamePackageSeeder extends Seeder
                 'amount' => 300,
                 'price' => 45000,
                 'description' => '300 UC untuk PUBG Mobile',
-                'image' => 'pubg.png',
+                'image' => 'PUBG.jpeg',
                 'is_active' => true
             ],
 
@@ -89,7 +89,7 @@ class GamePackageSeeder extends Seeder
                 'amount' => 500,
                 'price' => 50000,
                 'description' => '500 Valorant Points',
-                'image' => 'valorant.png',
+                'image' => 'Valorant.jpg',
                 'is_active' => true
             ],
         ];
