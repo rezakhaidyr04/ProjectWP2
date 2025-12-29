@@ -2,44 +2,54 @@
 
 @section('content')
 <div class="container py-5">
-    <!-- Header -->
-    <div class="mb-4">
-        <a href="{{ route('topup.index') }}" class="text-decoration-none" style="color: #00f5ff;">
-            <i class="fas fa-arrow-left"></i> Kembali
+    <!-- Breadcrumb -->
+    <div class="mb-4" data-aos="fade-right">
+        <a href="{{ route('topup.index') }}" class="btn btn-glass">
+            <i class="fas fa-arrow-left me-2"></i>Kembali ke Katalog
         </a>
     </div>
 
-    <div class="mb-4">
-        <h1 class="display-4 mb-2" style="background: linear-gradient(135deg, #00f5ff, #39ff14); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
-            {{ $gameName }}
-        </h1>
-        <p class="lead" style="color: #a0a0c0;">Pilih paket yang ingin Anda beli</p>
+    <!-- Header -->
+    <div class="mb-5" data-aos="fade-up">
+        <span class="badge mb-3" style="background: var(--gradient-primary); padding: 0.5rem 1rem; border-radius: 50px;">
+            <i class="fas fa-gamepad me-1"></i>{{ $gameName }}
+        </span>
+        <h1 class="display-5 fw-bold text-gradient mb-3">{{ $gameName }}</h1>
+        <p class="lead text-muted">Pilih paket yang sesuai dengan kebutuhan Anda</p>
     </div>
 
     <!-- Filter Section -->
-    <div class="card mb-4" style="background: rgba(30, 30, 30, 0.6); border: 2px solid rgba(0, 245, 255, 0.2);">
-        <div class="card-body">
+    <div class="card mb-5" data-aos="fade-up" data-aos-delay="100" style="border-radius: 20px;">
+        <div class="card-body p-4">
+            <div class="d-flex align-items-center mb-3">
+                <i class="fas fa-filter me-2" style="color: var(--accent-primary);"></i>
+                <h6 class="fw-bold mb-0">Filter Paket</h6>
+            </div>
             <form method="GET" class="row g-3">
                 <div class="col-md-3">
                     <label class="form-label">Harga Minimum</label>
-                    <input type="number" name="min_price" class="form-control" placeholder="0" value="{{ request('min_price') }}"
-                           style="background: rgba(30, 30, 30, 0.8); border: 2px solid rgba(0, 245, 255, 0.3);">
+                    <div class="input-group">
+                        <span class="input-group-text" style="background: transparent; border-right: none;">Rp</span>
+                        <input type="number" name="min_price" class="form-control" placeholder="0" value="{{ request('min_price') }}">
+                    </div>
                 </div>
                 <div class="col-md-3">
                     <label class="form-label">Harga Maksimum</label>
-                    <input type="number" name="max_price" class="form-control" placeholder="0" value="{{ request('max_price') }}"
-                           style="background: rgba(30, 30, 30, 0.8); border: 2px solid rgba(0, 245, 255, 0.3);">
+                    <div class="input-group">
+                        <span class="input-group-text" style="background: transparent; border-right: none;">Rp</span>
+                        <input type="number" name="max_price" class="form-control" placeholder="0" value="{{ request('max_price') }}">
+                    </div>
                 </div>
                 <div class="col-md-3">
                     <label class="form-label">Urutkan</label>
-                    <select name="sort_by" class="form-select" style="background: rgba(30, 30, 30, 0.8); border: 2px solid rgba(0, 245, 255, 0.3);">
+                    <select name="sort_by" class="form-select">
                         <option value="price_asc" {{ request('sort_by') === 'price_asc' ? 'selected' : '' }}>Harga Terendah</option>
                         <option value="price_desc" {{ request('sort_by') === 'price_desc' ? 'selected' : '' }}>Harga Tertinggi</option>
                     </select>
                 </div>
                 <div class="col-md-3 d-flex align-items-end gap-2">
-                    <button type="submit" class="btn btn-primary w-100">
-                        <i class="fas fa-filter"></i> Filter
+                    <button type="submit" class="btn btn-primary flex-grow-1">
+                        <i class="fas fa-search me-2"></i>Terapkan
                     </button>
                     @if(request('min_price') || request('max_price') || request('sort_by'))
                         <a href="{{ route('topup.game', $gameName) }}" class="btn btn-outline-secondary">
@@ -54,150 +64,160 @@
     <!-- Packages Grid -->
     <div class="row g-4">
         @forelse($packages as $package)
-        <div class="col-12 col-md-6 col-lg-4">
-            <div class="card h-100" style="
-                background: rgba(30, 30, 30, 0.8);
-                border: 2px solid rgba(0, 245, 255, 0.3);
-                border-radius: 15px;
-                backdrop-filter: blur(20px);
-                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                overflow: hidden;
-            ">
+        <div class="col-12 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ $loop->index * 50 }}">
+            <div class="card h-100 package-card" style="border-radius: 24px; overflow: hidden;">
                 <!-- Package Image -->
-                <div style="
-                    height: 300px;
-                    background: linear-gradient(135deg, rgba(0, 245, 255, 0.2), rgba(57, 255, 20, 0.2));
+                <div class="package-image-wrapper" style="
+                    height: 280px;
+                    background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.15));
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     overflow: hidden;
-                    border-bottom: 2px solid rgba(0, 245, 255, 0.3);
+                    position: relative;
                 ">
                     @if($package->image)
                         <img src="{{ asset('images/games/' . $package->image) }}" alt="{{ $package->package_name }}" style="
                             width: 100%;
                             height: 100%;
                             object-fit: contain;
-                            padding: 10px;
-                            transition: transform 0.3s ease;
+                            padding: 20px;
+                            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
                         " class="package-image">
                     @else
-                        <div style="color: #a0a0c0; text-align: center;">
-                            <i class="fas fa-image fa-3x"></i>
-                            <p class="mt-2">No Image</p>
+                        <div style="color: var(--text-muted); text-align: center;">
+                            <i class="fas fa-image fa-4x" style="opacity: 0.3;"></i>
+                            <p class="mt-3 mb-0">No Image</p>
                         </div>
                     @endif
                 </div>
 
-                <div style="
-                    background: linear-gradient(135deg, rgba(0, 245, 255, 0.1), rgba(57, 255, 20, 0.1));
-                    padding: 30px;
-                    text-align: center;
-                ">
-                    <h4 style="color: #39ff14; font-weight: 700; margin: 0 0 10px 0;">
-                        {{ $package->package_name }}
-                    </h4>
-                    <p style="color: #a0a0c0; margin: 0; font-size: 0.9rem;">
-                        {{ $package->description }}
-                    </p>
-                </div>
+                <!-- Package Info -->
+                <div class="card-body p-4">
+                    <div class="text-center mb-4">
+                        <h4 class="fw-bold mb-2" style="color: var(--accent-emerald);">
+                            {{ $package->package_name }}
+                        </h4>
+                        <p class="text-muted small mb-0">{{ $package->description }}</p>
+                    </div>
 
-                <div class="card-body">
-                    <div style="margin-bottom: 20px;">
-                        <p style="color: #a0a0c0; margin: 0 0 8px 0; font-size: 0.85rem;">Harga</p>
-                        <h3 style="color: #00f5ff; font-weight: 700; margin: 0;">
+                    <!-- Price -->
+                    <div class="text-center mb-4">
+                        <span class="text-muted small">Harga</span>
+                        <h3 class="fw-bold text-gradient mb-0">
                             Rp{{ number_format($package->price, 0, ',', '.') }}
                         </h3>
                     </div>
 
-                    <!-- Reviews & Wishlist Section -->
-                    <div style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid rgba(0, 245, 255, 0.2);">
-                        <div class="d-grid gap-2">
-                            <a href="{{ route('reviews.index', $package->id) }}" class="btn btn-sm" style="background: rgba(0, 212, 255, 0.2); color: #00d4ff; border: 1px solid #00d4ff; font-size: 0.85rem;">
-                                <i class="fas fa-star me-1"></i> Lihat Review ({{ $package->reviews()->count() }})
-                            </a>
-                            @auth
-                                <button type="button" class="btn btn-sm" onclick="toggleWishlist({{ $package->id }})" style="background: rgba(236, 72, 153, 0.2); color: #ec4899; border: 1px solid #ec4899; font-size: 0.85rem;">
-                                    <i class="fas fa-heart me-1"></i> <span id="wishlist-text-{{ $package->id }}">Tambah ke Wishlist</span>
-                                </button>
-                            @endauth
-                        </div>
+                    <!-- Reviews & Wishlist -->
+                    <div class="d-flex gap-2 mb-4">
+                        <a href="{{ route('reviews.index', $package->id) }}" class="btn btn-glass flex-grow-1" style="font-size: 0.85rem;">
+                            <i class="fas fa-star me-1" style="color: var(--accent-amber);"></i> Review ({{ $package->reviews()->count() }})
+                        </a>
+                        @auth
+                            <button type="button" class="btn btn-glass" onclick="toggleWishlist({{ $package->id }})" style="color: var(--accent-rose);">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        @endauth
                     </div>
 
+                    <!-- Buy Button -->
                     @auth
-                        <a href="{{ route('topup.checkout', $package->id) }}" class="btn w-100" style="
-                            background: linear-gradient(135deg, #00f5ff, #39ff14);
-                            color: #000;
-                            font-weight: 600;
-                            border: none;
-                            border-radius: 8px;
-                            padding: 12px;
-                            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                        ">
-                            <i class="fas fa-shopping-cart"></i> Beli Sekarang
+                        <a href="{{ route('topup.checkout', $package->id) }}" class="btn btn-primary w-100">
+                            <i class="fas fa-shopping-cart me-2"></i>Beli Sekarang
                         </a>
                     @else
-                        <button class="btn w-100" data-bs-toggle="modal" data-bs-target="#loginModal" style="
-                            background: linear-gradient(135deg, #ff006e, #ff3b30);
-                            color: #fff;
-                            font-weight: 600;
-                            border: none;
-                            border-radius: 8px;
-                            padding: 12px;
-                            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                        ">
-                            <i class="fas fa-sign-in-alt"></i> Login untuk Membeli
+                        <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#loginModal" style="background: var(--accent-rose); border: none;">
+                            <i class="fas fa-sign-in-alt me-2"></i>Login untuk Membeli
                         </button>
                     @endauth
                 </div>
             </div>
         </div>
         @empty
-        <div class="col-12">
-            <div class="alert" style="background: rgba(255, 59, 48, 0.1); border: 2px solid #ff3b30; color: #ff3b30; border-radius: 10px;">
-                <i class="fas fa-exclamation-circle"></i> Tidak ada paket tersedia untuk game ini
+        <div class="col-12" data-aos="fade-up">
+            <div class="card p-5 text-center" style="border-radius: 24px;">
+                <div class="mb-4">
+                    <i class="fas fa-box-open fa-4x" style="color: var(--accent-rose); opacity: 0.5;"></i>
+                </div>
+                <h4 class="fw-bold mb-2">Paket Tidak Tersedia</h4>
+                <p class="text-muted mb-4">Tidak ada paket tersedia untuk game ini saat ini</p>
+                <div>
+                    <a href="{{ route('topup.index') }}" class="btn btn-primary">
+                        <i class="fas fa-arrow-left me-2"></i>Lihat Game Lain
+                    </a>
+                </div>
             </div>
         </div>
         @endforelse
     </div>
 </div>
 
-<style>
-    .card:hover {
-        border-color: #00f5ff !important;
-        box-shadow: 0 0 30px rgba(0, 245, 255, 0.3) !important;
-        transform: translateY(-5px);
-    }
-
-    .card:hover .package-image {
-        transform: scale(1.05);
-    }
-
-    .btn:hover {
-        box-shadow: 0 0 20px rgba(0, 245, 255, 0.5) !important;
-    }
-</style>
-
 <!-- Login Modal -->
-<div class="modal fade" id="loginModal" tabindex="-1" style="display: none;">
+<div class="modal fade" id="loginModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content" style="background: rgba(15, 15, 15, 0.95); border: 2px solid rgba(0, 245, 255, 0.3); border-radius: 15px;">
-            <div class="modal-header" style="border-bottom: 2px solid rgba(0, 245, 255, 0.2);">
-                <h5 class="modal-title" style="color: #00f5ff;">
-                    <i class="fas fa-lock"></i> Login Diperlukan
+        <div class="modal-content" style="border-radius: 24px; border: 1px solid var(--glass-border);">
+            <div class="modal-header" style="border-bottom: 1px solid var(--glass-border);">
+                <h5 class="modal-title fw-bold">
+                    <i class="fas fa-lock me-2" style="color: var(--accent-primary);"></i>Login Diperlukan
                 </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(1);"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body p-4">
-                <p style="color: #a0a0c0; margin-bottom: 15px;">
+            <div class="modal-body p-4 text-center">
+                <div class="mb-4">
+                    <i class="fas fa-user-lock fa-4x" style="color: var(--accent-primary); opacity: 0.5;"></i>
+                </div>
+                <p class="text-muted mb-4">
                     Silakan login terlebih dahulu untuk melakukan pembelian top-up game.
                 </p>
-                <p style="color: #a0a0c0; margin-bottom: 20px;">
-                    Belum punya akun? <a href="{{ route('register') }}" style="color: #39ff14; text-decoration: none; font-weight: 600;">Daftar di sini</a>
-                </p>
+                <div class="d-flex gap-3 justify-content-center">
+                    <a href="{{ route('login') }}" class="btn btn-primary px-4">
+                        <i class="fas fa-sign-in-alt me-2"></i>Login
+                    </a>
+                    <a href="{{ route('register') }}" class="btn btn-outline-secondary px-4">
+                        <i class="fas fa-user-plus me-2"></i>Daftar
+                    </a>
+                </div>
             </div>
-            <div class="modal-footer" style="border-top: 2px solid rgba(0, 245, 255, 0.2);">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+        </div>
+    </div>
+</div>
+
+@section('styles')
+<style>
+    .text-gradient {
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .package-card:hover .package-image {
+        transform: scale(1.1);
+    }
+    
+    .btn-glass {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--glass-border);
+        color: var(--text-secondary);
+        border-radius: 12px;
+        transition: var(--transition-normal);
+    }
+    
+    .btn-glass:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: var(--accent-primary);
+        color: var(--text-primary);
+        transform: translateY(-2px);
+    }
+    
+    .input-group-text {
+        border-color: var(--glass-border);
+    }
+</style>
+@endsection
+@endsection
                 <a href="{{ route('login') }}" class="btn" style="background: linear-gradient(135deg, #00f5ff, #39ff14); color: #000; font-weight: 600; border: none;">
                     <i class="fas fa-sign-in-alt"></i> Login Sekarang
                 </a>

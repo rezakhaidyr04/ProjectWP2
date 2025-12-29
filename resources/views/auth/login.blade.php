@@ -1,125 +1,113 @@
 @extends('layouts.app')
 
-@section('title', 'Masuk - Kelompok 2')
+@section('title', 'Masuk - Pay to Win')
 
 @section('content')
 <div class="container py-5">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center align-items-center min-vh-75">
         <div class="col-md-6 col-lg-5">
-            <div class="card" style="
-                background: rgba(30, 30, 30, 0.8);
-                border: 2px solid rgba(0, 245, 255, 0.3);
-                border-radius: 15px;
-                backdrop-filter: blur(20px);
-                overflow: hidden;
-            ">
-                <div style="
-                    background: linear-gradient(135deg, #00f5ff, #39ff14);
-                    padding: 25px;
-                    color: #000;
-                ">
-                    <h4 style="margin: 0; font-weight: 700;">
-                        <i class="fas fa-sign-in-alt me-2"></i>Masuk ke Kelompok 2
-                    </h4>
+            <!-- Card -->
+            <div class="card" data-aos="fade-up" style="border-radius: 24px; overflow: hidden;">
+                <!-- Header -->
+                <div class="text-center p-4 pb-0">
+                    <div class="icon-wrapper mx-auto mb-3" style="
+                        width: 80px;
+                        height: 80px;
+                        background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.2));
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    ">
+                        <i class="fas fa-user" style="font-size: 2rem; color: var(--accent-primary);"></i>
+                    </div>
+                    <h3 class="fw-bold text-gradient mb-1">Selamat Datang</h3>
+                    <p class="text-muted">Masuk ke akun Anda</p>
                 </div>
 
                 <div class="card-body p-4">
                     @if ($errors->any())
-                        <div style="background: rgba(255, 59, 48, 0.1); border: 2px solid #ff3b30; color: #ff3b30; border-radius: 10px; padding: 12px; margin-bottom: 20px;">
-                            <strong><i class="fas fa-exclamation-circle me-2"></i>Kesalahan Login</strong>
+                        <div class="alert mb-4" style="background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.3); border-radius: 12px; color: var(--accent-rose);">
+                            <i class="fas fa-exclamation-circle me-2"></i>Email atau password salah
                         </div>
                     @endif
 
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
-                        <div class="mb-3">
-                            <label for="email" style="color: #a0a0c0; font-weight: 500; margin-bottom: 8px; display: block;">
-                                Email <span style="color: #ff006e;">*</span>
+                        <div class="mb-4">
+                            <label for="email" class="form-label fw-medium">
+                                Email <span style="color: var(--accent-rose);">*</span>
                             </label>
-                            <input type="email" class="form-control @error('email') is-invalid @enderror" 
-                                   id="email" name="email" value="{{ old('email') }}" 
-                                   placeholder="Masukkan email Anda" required autofocus
-                                   style="
-                                       background: rgba(18, 18, 18, 0.8);
-                                       border: 2px solid rgba(0, 245, 255, 0.3);
-                                       color: #ffffff;
-                                       border-radius: 8px;
-                                       padding: 12px 15px;
-                                   "
-                            >
+                            <div class="input-group">
+                                <span class="input-group-text" style="background: transparent; border-right: none; border-radius: 12px 0 0 12px;">
+                                    <i class="fas fa-envelope" style="color: var(--accent-primary);"></i>
+                                </span>
+                                <input type="email" class="form-control @error('email') is-invalid @enderror" 
+                                       id="email" name="email" value="{{ old('email') }}" 
+                                       placeholder="nama@email.com" required autofocus
+                                       style="border-left: none; border-radius: 0 12px 12px 0;">
+                            </div>
                             @error('email')
-                                <div style="color: #ff3b30; font-size: 0.85rem; margin-top: 5px;">{{ $message }}</div>
+                                <div class="text-danger small mt-2">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <div class="mb-3">
-                            <label for="password" style="color: #a0a0c0; font-weight: 500; margin-bottom: 8px; display: block;">
-                                Password <span style="color: #ff006e;">*</span>
+                        <div class="mb-4">
+                            <label for="password" class="form-label fw-medium">
+                                Password <span style="color: var(--accent-rose);">*</span>
                             </label>
-                            <input type="password" class="form-control @error('password') is-invalid @enderror" 
-                                   id="password" name="password" 
-                                   placeholder="Masukkan password Anda" required
-                                   style="
-                                       background: rgba(18, 18, 18, 0.8);
-                                       border: 2px solid rgba(0, 245, 255, 0.3);
-                                       color: #ffffff;
-                                       border-radius: 8px;
-                                       padding: 12px 15px;
-                                   "
-                            >
+                            <div class="input-group">
+                                <span class="input-group-text" style="background: transparent; border-right: none; border-radius: 12px 0 0 12px;">
+                                    <i class="fas fa-lock" style="color: var(--accent-primary);"></i>
+                                </span>
+                                <input type="password" class="form-control @error('password') is-invalid @enderror" 
+                                       id="password" name="password" 
+                                       placeholder="Masukkan password" required
+                                       style="border-left: none; border-radius: 0 12px 12px 0;">
+                            </div>
                             @error('password')
-                                <div style="color: #ff3b30; font-size: 0.85rem; margin-top: 5px;">{{ $message }}</div>
+                                <div class="text-danger small mt-2">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <div class="mb-3">
-                            <div style="display: flex; align-items: center;">
-                                <input type="checkbox" id="remember" name="remember" style="width: 18px; height: 18px; cursor: pointer;">
-                                <label for="remember" style="color: #a0a0c0; margin-left: 8px; margin-bottom: 0; cursor: pointer;">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="remember" name="remember" style="cursor: pointer;">
+                                <label class="form-check-label text-muted" for="remember" style="cursor: pointer;">
                                     Ingat saya
                                 </label>
                             </div>
+                            <a href="{{ route('password.request') }}" class="text-decoration-none small" style="color: var(--accent-primary);">
+                                Lupa password?
+                            </a>
                         </div>
 
-                        <div style="background: rgba(0, 245, 255, 0.1); border-left: 4px solid #00f5ff; padding: 12px; border-radius: 8px; margin-bottom: 20px;">
-                            <p style="color: #00f5ff; font-weight: 600; margin: 0 0 8px 0; font-size: 0.9rem;">
-                                <i class="fas fa-info-circle me-2"></i>Pengguna Uji Coba
+                        <!-- Demo Account Info -->
+                        <div class="mb-4 p-3" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1)); border-radius: 12px; border: 1px solid rgba(99, 102, 241, 0.2);">
+                            <p class="fw-medium small mb-2" style="color: var(--accent-primary);">
+                                <i class="fas fa-info-circle me-1"></i>Akun Demo
                             </p>
-                            <p style="color: #a0a0c0; margin: 5px 0; font-size: 0.85rem;">
+                            <p class="text-muted small mb-1">
                                 <strong>Email:</strong> test@example.com
                             </p>
-                            <p style="color: #a0a0c0; margin: 0; font-size: 0.85rem;">
+                            <p class="text-muted small mb-0">
                                 <strong>Password:</strong> password
                             </p>
                         </div>
 
-                        <button type="submit" class="btn w-100" style="
-                            background: linear-gradient(135deg, #00f5ff, #39ff14);
-                            color: #000;
-                            font-weight: 600;
-                            border: none;
-                            border-radius: 8px;
-                            padding: 12px;
-                            font-size: 1rem;
-                            transition: all 0.3s;
-                        ">
+                        <button type="submit" class="btn btn-primary w-100 mb-4" style="border-radius: 12px; padding: 0.875rem;">
                             <i class="fas fa-sign-in-alt me-2"></i>Masuk
                         </button>
                     </form>
 
-                    <hr style="border-color: rgba(0, 245, 255, 0.2); margin: 25px 0;">
-
-                    <div style="text-align: center;">
-                        <p style="color: #a0a0c0; margin-bottom: 10px; font-size: 0.9rem;">
+                    <div class="text-center">
+                        <p class="text-muted mb-0">
                             Belum punya akun? 
-                            <a href="{{ route('register') }}" style="color: #00f5ff; text-decoration: none; font-weight: 600;">
-                                Daftar di sini
+                            <a href="{{ route('register') }}" class="fw-semibold text-decoration-none" style="color: var(--accent-primary);">
+                                Daftar sekarang
                             </a>
                         </p>
-                        <a href="{{ route('password.request') }}" style="color: #39ff14; text-decoration: none; font-size: 0.9rem;">
-                            Lupa password?
-                        </a>
                     </div>
                 </div>
             </div>
@@ -127,25 +115,45 @@
     </div>
 </div>
 
+@section('styles')
 <style>
-    .form-control:focus {
-        background-color: rgba(18, 18, 18, 0.9) !important;
-        border-color: #00f5ff !important;
-        box-shadow: 0 0 15px rgba(0, 245, 255, 0.3) !important;
-        color: #ffffff !important;
+    .min-vh-75 {
+        min-height: 75vh;
     }
-
+    
+    .text-gradient {
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .input-group-text {
+        border-color: var(--glass-border);
+    }
+    
     .form-control {
-        color: #ffffff !important;
+        background: var(--glass-bg);
+        border-color: var(--glass-border);
+        color: var(--text-primary);
+        padding: 0.75rem 1rem;
     }
-
+    
+    .form-control:focus {
+        background: var(--glass-bg);
+        border-color: var(--accent-primary);
+        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+        color: var(--text-primary);
+    }
+    
     .form-control::placeholder {
-        color: #708fa0 !important;
+        color: var(--text-muted);
     }
-
-    .btn:hover {
-        box-shadow: 0 0 20px rgba(0, 245, 255, 0.5) !important;
-        transform: translateY(-2px);
+    
+    .form-check-input:checked {
+        background-color: var(--accent-primary);
+        border-color: var(--accent-primary);
     }
 </style>
+@endsection
 @endsection

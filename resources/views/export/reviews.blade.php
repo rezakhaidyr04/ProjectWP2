@@ -108,7 +108,7 @@
     @endforelse
 
     <div class="footer">
-        <p>Laporan ini dibuat dari platform Kelompok 2 Gaming Top-Up</p>
+        <p>Laporan ini dibuat dari platform Pay to Win Gaming Top-Up</p>
         <p>© {{ now()->year }} - Semua hak dilindungi</p>
     </div>
 </body>

@@ -83,13 +83,13 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🎮 Kelompok 2 - Pesanan Diterima</h1>
+            <h1>🎮 Pay to Win - Pesanan Diterima</h1>
         </div>
 
         <div class="content">
             <p>Halo {{ $transaction->user->name }},</p>
             
-            <p>Terima kasih telah melakukan pemesanan top up game di Kelompok 2! Pesanan Anda telah kami terima dan sedang diproses.</p>
+            <p>Terima kasih telah melakukan pemesanan top up game di Pay to Win! Pesanan Anda telah kami terima dan sedang diproses.</p>
 
             <div class="info-box">
                 <div class="info-row">
@@ -122,14 +122,14 @@
 
             <p>Jika ada pertanyaan atau memerlukan bantuan, jangan ragu untuk menghubungi kami.</p>
 
-            <p>Terima kasih telah mempercayai Kelompok 2!</p>
+            <p>Terima kasih telah mempercayai Pay to Win!</p>
 
             <p>Salam,<br>
-            <strong>Tim Kelompok 2</strong></p>
+            <strong>Tim Pay to Win</strong></p>
         </div>
 
         <div class="footer">
-            <p>&copy; {{ date('Y') }} Kelompok 2 - Game Top Up Services. All rights reserved.</p>
+            <p>&copy; {{ date('Y') }} Pay to Win - Game Top Up Services. All rights reserved.</p>
             <p>Email ini dikirim ke {{ $transaction->user->email }} karena Anda memiliki akun di platform kami.</p>
         </div>
     </div>

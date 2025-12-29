@@ -19,8 +19,8 @@ Pembayaran Anda telah berhasil kami terima. Top up game Anda sedang diproses dan
 Lihat Riwayat Transaksi
 @endcomponent
 
-Terima kasih telah menggunakan Kelompok 2!
+Terima kasih telah menggunakan Pay to Win!
 
 Salam,
-**Kelompok 2 Team**
+**Pay to Win Team**
 @endcomponent
